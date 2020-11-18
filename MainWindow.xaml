@@ -1,0 +1,80 @@
+﻿<Window x:Class="wpf_zadanie5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:wpf_zadanie5"
+        mc:Ignorable="d"
+        Title="DummyAPI" Height="550" Width="900" Loaded="WindowLoad">
+    <Grid>
+        <Grid Name="LocalWork">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0"  Margin="10" Padding="10" Name="PeopleList" DisplayMemberPath="Info" />
+
+            <Grid Grid.Column="1" DataContext="{Binding ElementName=PeopleList, Path=SelectedItem}" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" IsEnabled="{Binding ElementName=PeopleList, Path=SelectedItems.Count}">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="Imię i Nazwisko" Margin="10" Padding="10" HorizontalAlignment="Left" />
+                    <TextBox Grid.Column="1"  Margin="10" Padding="10" Name="TextName" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Pensja" Margin="10" Padding="10" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" />
+                    <TextBox Grid.Column="1"  Margin="10" Padding="10" Grid.Row="1" Name="TextSalary" Text="{Binding Path=Salary, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Content="Wiek" Margin="10" Padding="10" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" />
+                    <TextBox Grid.Column="1"  Margin="10" Padding="10" Grid.Row="2" Name="TextAge" Text="{Binding Path=Age, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Content="Dodaj" Margin="10" Padding="10" Click="AddButton" />
+                    <Button Grid.Column="1" Content="Usuń" Margin="10" Padding="10" Click="DeleteButton" IsEnabled="{Binding ElementName=PeopleList, Path=SelectedItems.Count}"/>
+                    <Button Grid.Column="2" Name="test" Content="Update" Margin="10" Padding="10" Click="UpdateButton" />
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Margin="5" Padding="5" Content="Lista operacji do wykonania na serwerze:" />
+                    <ListBox Grid.Row="1" Margin="10" Padding="10" Name="OperationList" />
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Popup Name="ServerWork" Placement="Center">
+            <Border BorderThickness="0.5" BorderBrush="Black" >
+                <Grid Height="75" Width="300" Background="White">
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Modyfikowanie danych na serwerze.<LineBreak /> 
+                    Proszę czekać.</TextBlock>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>
